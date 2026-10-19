@@ -147,6 +147,84 @@
       box-shadow: 2px 2px 6px #cbd5e0;
     }
 
+    /* بطاقة إعدادات التبييض في البداية */
+    .initial-config-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 4px 4px 10px #bec5ce, -4px -4px 10px #ffffff;
+    }
+    .config-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #4A5568;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(160, 174, 192, 0.5);
+    }
+    .config-switch-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .config-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      background: var(--window-bg);
+      box-shadow: 3px 3px 6px #bec5ce, -3px -3px 6px #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: inherit;
+    }
+    .config-opt-btn:hover {
+      transform: translateY(-1px);
+    }
+    .config-opt-btn.active {
+      background: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: inset 2px 2px 5px rgba(90, 103, 216, 0.12), inset -2px -2px 5px #ffffff, 0 3px 8px rgba(90, 103, 216, 0.2);
+    }
+    .config-opt-btn .opt-indicator {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .config-opt-btn .opt-texts {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .config-opt-btn .opt-main {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .config-opt-btn.active .opt-main {
+      color: var(--primary);
+    }
+    .config-opt-btn .opt-sub {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+    .config-opt-btn .opt-check {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .config-opt-btn.active .opt-check {
+      opacity: 1;
+    }
+
     .clay-btn {
       width: 100%;
       padding: 14px;
@@ -173,6 +251,16 @@
     .btn-camera { background-color: var(--primary); }
     .btn-gallery { background-color: var(--gallery-btn); }
     .btn-install-app { background: linear-gradient(135deg, #3182CE, #6B46C1); }
+
+    /* إخفاء زر التثبيت تلقائياً عند فتح البرنامج كتطبيق مثبت */
+    @media all and (display-mode: standalone),
+           all and (display-mode: minimal-ui),
+           all and (display-mode: fullscreen),
+           all and (display-mode: window-controls-overlay) {
+      .btn-install-app {
+        display: none !important;
+      }
+    }
     .btn-save-white { background-color: var(--success); }
     .btn-save-original { background-color: #3182CE; }
     .btn-save-png { background-color: var(--png-btn); }
@@ -589,6 +677,34 @@
         <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
       </div>
 
+      <!-- بەشێ ڕێکخستنان ل دەستپێکێ: سپیکرنا پاشبنەمایێ پێکری/راگرتی -->
+      <div class="initial-config-card">
+        <div class="config-header">
+          <span style="font-size: 16px;">⚙️</span>
+          <span id="txt-config-heading">ڕێکخستنا سپیکرنا پاشبنەمایێ (ژ دەستپێکێ):</span>
+        </div>
+        
+        <div class="config-switch-group">
+          <button type="button" class="config-opt-btn active" id="btn-config-whitening-on" onclick="setInitialWhitening(true)">
+            <span class="opt-indicator">⚪</span>
+            <div class="opt-texts">
+              <span class="opt-main" id="txt-opt-on-title">سپیکرنا پاشبنەمایێ (کارایە)</span>
+              <span class="opt-sub" id="txt-opt-on-sub">پاشبنەما دێ هێتە سپیکرن ب ستۆدیۆ</span>
+            </div>
+            <span class="opt-check">✔</span>
+          </button>
+
+          <button type="button" class="config-opt-btn" id="btn-config-whitening-off" onclick="setInitialWhitening(false)">
+            <span class="opt-indicator">📷</span>
+            <div class="opt-texts">
+              <span class="opt-main" id="txt-opt-off-title">بێ سپیکرن (پاشبنەما بنەڕەتی)</span>
+              <span class="opt-sub" id="txt-opt-off-sub">وێنە ب پاشبنەما خۆ دێ مینیت</span>
+            </div>
+            <span class="opt-check">✔</span>
+          </button>
+        </div>
+      </div>
+
       <input type="file" id="mobileCameraInput" accept="image/*" capture="user" onchange="handleFileSelected(event)">
       <input type="file" id="mobileGalleryInput" accept="image/*" onchange="handleFileSelected(event)">
 
@@ -730,24 +846,17 @@
       <input type="text" id="studentName" class="input-box" placeholder="ناڤێ قوتابی لڤێرە بنڤیسە...">
       <p class="field-hint" id="txt-hint">وێنە دێ ب ڤی ناڤی هێتە پاراستن د مۆبایلێ دا</p>
 
-      <!-- زر حفظ بخلفية بيضاء نقية بجودة أصلية -->
-      <button class="clay-btn btn-save-white" onclick="downloadImage('white-hd')">
-        <span>⚪</span> <span id="txt-btn-save-white">پاراستن: پاشبنەما سپی (HD بنەڕەتی)</span>
+      <!-- أزرار الحفظ بمقاس ثابت 166×200 لجميع الأنواع -->
+      <button class="clay-btn btn-save-white" onclick="downloadImage('white')">
+        <span>⚪</span> <span id="txt-btn-save-white">پاراستن: پاشبنەما سپی (166×200)</span>
       </button>
 
-      <!-- زر حفظ بالخلفية الأصلية بدون تبييض -->
-      <button class="clay-btn btn-save-original" onclick="downloadImage('original-hd')">
-        <span>📷</span> <span id="txt-btn-save-orig">پاراستن: ب پاشبنەما بنەڕەتی (بێ سپیکرن)</span>
+      <button class="clay-btn btn-save-original" onclick="downloadImage('original')">
+        <span>📷</span> <span id="txt-btn-save-orig">پاراستن: ب پاشبنەما بنەڕەتی (166×200)</span>
       </button>
 
-      <!-- زر حفظ بصيغة PNG مفرغة بدون خلفية -->
-      <button class="clay-btn btn-save-png" onclick="downloadImage('png-transparent')">
-        <span>✨</span> <span id="txt-btn-save-png">پاراستن: PNG شەفاف بێ پاشبنەما</span>
-      </button>
-
-      <!-- زر حفظ بمقاس البطاقة 200x160 -->
-      <button class="clay-btn btn-save-std" onclick="downloadImage('standard')">
-        <span>💳</span> <span id="txt-btn-save-std">پاراستن: قەبارێ ناسنامێ (200×160)</span>
+      <button class="clay-btn btn-save-png" onclick="downloadImage('png')">
+        <span>✨</span> <span id="txt-btn-save-png">پاراستن: PNG شەفاف بێ پاشبنەما (166×200)</span>
       </button>
       
       <button class="clay-btn btn-retake" onclick="closeModal()">
@@ -777,9 +886,14 @@
       <h3 style="font-size: 16px; margin-bottom: 8px;" id="txt-install-guide-title">تثبيت التطبيق على جهازك</h3>
       <div style="font-size: 13px; color: var(--text); line-height: 1.8; text-align: right; background: rgba(255,255,255,0.7); padding: 14px; border-radius: 16px; margin-bottom: 15px; border: 1px solid #FFFFFF;" id="txt-install-guide-body">
       </div>
-      <button class="clay-btn btn-alert-ok" onclick="closeInstallGuideModal()">
-        <span id="txt-install-guide-ok">باشە</span>
-      </button>
+      <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+        <button class="clay-btn btn-alert-ok" onclick="closeInstallGuideModal()">
+          <span id="txt-install-guide-ok">باشە</span>
+        </button>
+        <button type="button" class="clay-btn" style="background: transparent; color: var(--text-muted); box-shadow: none; border: 1px dashed #A0AEC0; font-size: 12px; padding: 10px; margin-top: 2px;" onclick="hideInstallButtonPermanently()">
+          <span id="txt-already-installed-btn">بەرنامە پێشتر هاتیە دابەزاندن (ڤێ دگمێ ڤەشێره) ✕</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -790,15 +904,19 @@
         appTitle: 'ستۆدیۆیا پێناسێن قوتابیان',
         btnCam: 'وێنەگرتن ب کامیرایێ',
         btnGallery: 'هەلبژارتن ژ گەلەریێ',
+        configHeading: 'ڕێکخستنا سپیکرنا پاشبنەمایێ (ژ دەستپێکێ):',
+        optOnTitle: 'سپیکرنا پاشبنەمایێ (کارایە)',
+        optOnSub: 'پاشبنەما دێ هێتە سپیکرن ب ستۆدیۆ',
+        optOffTitle: 'بێ سپیکرن (پاشبنەما بنەڕەتی)',
+        optOffSub: 'وێنە ب پاشبنەما خۆ دێ مینیت',
         loading: '⚡ عەزلکرنا ستۆدیۆ، ژێبرنا سێبەران و سپیکرنا پاشبنەمایێ ب کوالێتیا HD...',
         previewTitle: 'دیتنا وێنەیێ ئەنجام',
         previewSub: 'کوالێتیا ستۆدیۆ ب پاشبنەمایەکا سپیا نایاب و بێ هێلێن رەش',
         namePlaceholder: 'ناڤێ قوتابی لڤێرە بنڤیسە...',
         hint: 'وێنە دێ ب ڤی ناڤی هێتە پاراستن د ئامیرێ تە دا',
-        btnSaveWhite: 'پاراستن: پاشبنەما سپی (HD بنەڕەتی)',
-        btnSaveOrig: 'پاراستن: ب پاشبنەما بنەڕەتی (بێ سپیکرن)',
-        btnSavePng: 'پاراستن: PNG شەفاف بێ پاشبنەما',
-        btnSaveStd: 'پاراستن: قەبارێ پێناسێ (200×160)',
+        btnSaveWhite: 'پاراستن: پاشبنەما سپی (166×200)',
+        btnSaveOrig: 'پاراستن: ب پاشبنەما بنەڕەتی (166×200)',
+        btnSavePng: 'پاراستن: PNG شەفاف بێ پاشبنەما (166×200)',
         btnRetake: 'دووبارە هەلبژارتن',
         alertHeader: 'هشیاری!',
         alertContent: 'هیڤیدکەین سەرەتا ناڤێ قوتابی د خانیا دیارکری دا بنڤیسە دا کو وێنە بهێتە پاراستن!',
@@ -821,6 +939,7 @@
         installGuideTitle: 'چەوانیا داگرتنا بەرنامەی ل سەر ئامیرێ تە',
         installGuideBody: '• <b>بۆ مۆبایلێن ئەندرۆید و کۆمپیۆتەر:</b> ل سەر شریتا ناڤونیشانی یان لیستا وێبگەڕی کلیک ل "تثبيت التطبيق" یان Install بکە.<br><br>• <b>بۆ ئایفۆن و ئایپاد (iOS):</b> د وێبگەڕا Safari دا، دگمەیا پارڤەکرنێ (Share ⎋) ل خوارێ بگرە، پاشان "Add to Home Screen (زێدەکرن بۆ سەر شاشێ ➕)" هەلبژێرە.',
         installGuideOk: 'باشە',
+        alreadyInstalledBtn: 'بەرنامە پێشتر هاتیە دابەزاندن (ڤێ دگمێ ڤەشێره) ✕',
         footerRights: 'هه‌می ماف پاراستینە',
         footerAuthor: 'ئەڤ وێبسایتە هاتیە دروستکرن ژ لایێ ماموستا: <strong>طاهر محمود محمد</strong>',
         footerContact: 'تێبینی، رەخنە یان پەیوەندی بکە: <a href="tel:07503727069" class="phone-link">07503727069</a>'
@@ -830,15 +949,19 @@
         appTitle: 'ستۆدیۆی ناسنامەی قوتابیان HD',
         btnCam: 'گرتنی وێنە بە کامێرا',
         btnGallery: 'هەڵبژاردن لە گەلەری',
+        configHeading: 'ڕێکخستنی سپیکردنی پاشبنەما (لە سەرەتاوە):',
+        optOnTitle: 'سپیکردنی پاشبنەما (چالاکە)',
+        optOnSub: 'پاشبنەما سپی دەکرێتەوە بە شێوازی ستۆدیۆ',
+        optOffTitle: 'بێ سپیکردن (پاشبنەمای بنەڕەتی)',
+        optOffSub: 'وێنەکە بە پاشبنەمای خۆی دەمێنێتەوە',
         loading: '⚡ عەزلکردنی ستۆدیۆ، لابردنی سێبەر و سپیکردنی پاشبنەما...',
         previewTitle: 'دەرەنجامی وێنەکە',
         previewSub: 'کوالێتی ستۆدیۆ بە پاشبنەمای سپی بێ هێڵ و بێ سێبەر',
         namePlaceholder: 'ناوی قوتابی لێرە بنووسە...',
         hint: 'وێنەکە بەم ناوەوە لە مۆبایل پاشەکەوت دەکرێت',
-        btnSaveWhite: 'خەزنکردن: سپی (HD بنەڕەتی)',
-        btnSaveOrig: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (بێ سپیکردن)',
-        btnSavePng: 'خەزنکردن: وەک PNG شەفاف',
-        btnSaveStd: 'خەزنکردن: قەبارەی ناسنامە (200×160)',
+        btnSaveWhite: 'خەزنکردن: سپی (166×200)',
+        btnSaveOrig: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (166×200)',
+        btnSavePng: 'خەزنکردن: وەک PNG شەفاف (166×200)',
         btnRetake: 'دووبارە هەڵبژاردنەوە',
         alertHeader: 'ئاگاداری!',
         alertContent: 'تکایە سەرەتا ناوی قوتابی بنووسە بۆ ئەوەی وێنەکە پاشەکەوت بکرێت!',
@@ -861,6 +984,7 @@
         installGuideTitle: 'چۆنیەتی دابەزاندنی بەرنامەکە',
         installGuideBody: '• <b>بۆ ئەندرۆید و کۆمپیۆتەر:</b> لە بەشی سەرەوەی وێبگەڕ کلیک لە "تثبيت التطبيق" یان Install بکە.<br><br>• <b>بۆ ئایفۆن و ئایپاد (iOS):</b> لە وێبگەڕی Safari دوگمەی Share (⎋) دابگرە، پاشان "Add to Home Screen (➕)" هەڵبژێرە.',
         installGuideOk: 'باشە',
+        alreadyInstalledBtn: 'بەرنامەکە پێشتر دابەزێنراوە (ئەم دوگمەیە بشارەوە) ✕',
         footerRights: 'هه‌می ماف پاراستینە',
         footerAuthor: 'ئەڤ وێبسایتە هاتیە دروستکرن ژ لایێ ماموستا: <strong>طاهر محمود محمد</strong>',
         footerContact: 'تێبینی، رەخنە یان پەیوەندی بکە: <a href="tel:07503727069" class="phone-link">07503727069</a>'
@@ -870,15 +994,19 @@
         appTitle: 'استوديو بطاقات الطلاب الفائق HD',
         btnCam: 'التقاط بالكاميرا',
         btnGallery: 'اختيار من المعرض',
+        configHeading: 'إعدادات تبييض الخلفية (من البداية):',
+        optOnTitle: 'تبييض الخلفية بالذكاء الاصطناعي (مُفعّل)',
+        optOnSub: 'عزل وإزالة الظلال وتحويل الخلفية إلى بيضاء نقية',
+        optOffTitle: 'بدون تبييض - بالخلفية الأصلية (مُعطّل)',
+        optOffSub: 'إبقاء خلفية الصورة الأصلية كما هي بدون تبييض',
         loading: '⚡ عزل استوديو ذكي، إزالة الهالات والظلال وتبييض الخلفية...',
         previewTitle: 'معاينة النتيجة النهائية',
         previewSub: 'عزل فائق النقاء وإضاءة استوديو متوازنة مع إمكانية إبقاء الخلفية الأصلية',
         namePlaceholder: 'اكتب اسم الطالب هنا...',
         hint: 'سيتم حفظ الملف بهذا الاسم في جهازك',
-        btnSaveWhite: 'حفظ: خلفية بيضاء نقية (أعلى دقة)',
-        btnSaveOrig: 'حفظ: بالخلفية الأصلية (بدون تبييض)',
-        btnSavePng: 'حفظ: بصيغة PNG مفرغة (شفافة)',
-        btnSaveStd: 'حفظ: مقاس البطاقة (200×160)',
+        btnSaveWhite: 'حفظ: خلفية بيضاء نقية (166×200)',
+        btnSaveOrig: 'حفظ: بالخلفية الأصلية (166×200)',
+        btnSavePng: 'حفظ: بصيغة PNG مفرغة (166×200)',
         btnRetake: 'إعادة المحاولة / صورة أخرى',
         alertHeader: 'تنبيه!',
         alertContent: 'يرجى كتابة اسم الطالب أولاً في الخانة المخصصة قبل الحفظ!',
@@ -901,6 +1029,7 @@
         installGuideTitle: 'تثبيت البرنامج كـ تطبيق على جهازك',
         installGuideBody: '• <b>لهواتف أندرويد والكمبيوتر:</b> اضغط على زر "تثبيت" أو من خيارات المتصفح (⋮) اختر "تثبيت التطبيق / Install App".<br><br>• <b>لهواتف آيفون وآيباد (iOS):</b> في متصفح Safari، اضغط على زر المشاركة (Share ⎋) بالأسفل ثم مرر واختر "إضافة إلى الشاشة الرئيسية (Add to Home Screen ➕)".',
         installGuideOk: 'حسناً، فهمت',
+        alreadyInstalledBtn: 'التطبيق مثبت بالفعل على جهازي (إخفاء هذا الزر) ✕',
         footerRights: 'جميع الحقوق محفوظة',
         footerAuthor: 'تم إنشاء هذا الموقع بواسطة الأستاذ: <strong>طاهر محمود محمد</strong>',
         footerContact: 'ملاحظات، اقتراحات أو للتواصل: <a href="tel:07503727069" class="phone-link">07503727069</a>'
@@ -910,15 +1039,19 @@
         appTitle: 'STUDENT STUDIO PRO HD',
         btnCam: 'Take Photo',
         btnGallery: 'Upload from Gallery',
+        configHeading: 'Background Whitening Setting (From Start):',
+        optOnTitle: 'Studio White Background (Enabled)',
+        optOnSub: 'Remove shadows and whiten background',
+        optOffTitle: 'No Whitening - Original BG (Disabled)',
+        optOffSub: 'Keep original photo background as taken',
         loading: '⚡ Studio matting, defringing & lighting balance in progress...',
         previewTitle: 'Processed Result',
         previewSub: 'Studio-grade cutout with defringing, lighting balance & original or white BG',
         namePlaceholder: 'Enter student name here...',
         hint: 'File will be saved with this name',
-        btnSaveWhite: 'Save: Pure White BG (Full HD)',
-        btnSaveOrig: 'Save: Original BG (No Whitening)',
-        btnSavePng: 'Save: Transparent PNG (Cutout)',
-        btnSaveStd: 'Save: ID Size (200×160)',
+        btnSaveWhite: 'Save: Pure White BG (166×200)',
+        btnSaveOrig: 'Save: Original BG (166×200)',
+        btnSavePng: 'Save: Transparent PNG (166×200)',
         btnRetake: 'Retake / Choose Another',
         alertHeader: 'Notice!',
         alertContent: 'Please enter student name before downloading!',
@@ -941,6 +1074,7 @@
         installGuideTitle: 'Install as App on Your Device',
         installGuideBody: '• <b>Android & Desktop (Chrome/Edge):</b> Click "Install App" or click the install icon in the browser address bar.<br><br>• <b>iPhone & iPad (iOS):</b> In Safari, tap the Share button (⎋) and choose "Add to Home Screen ➕".',
         installGuideOk: 'Got it',
+        alreadyInstalledBtn: 'Already installed on device (Hide button) ✕',
         footerRights: 'All Rights Reserved',
         footerAuthor: 'This website was created by Teacher: <strong>Tahir Mahmoud Mohammed</strong>',
         footerContact: 'Feedback, inquiries or contact: <a href="tel:07503727069" class="phone-link">07503727069</a>'
@@ -949,6 +1083,29 @@
 
     let currentLang = 'bad';
     let currentPreviewMode = 'white'; // 'white', 'original', or 'transparent'
+
+    // حالة تبييض الخلفية المحددة من شاشة البداية
+    let initialWhiteningEnabled = true;
+    try {
+      const savedWhitening = localStorage.getItem('hd_studio_whitening_enabled');
+      if (savedWhitening !== null) {
+        initialWhiteningEnabled = (savedWhitening === 'true');
+      }
+    } catch (e) {}
+
+    function setInitialWhitening(enabled) {
+      initialWhiteningEnabled = enabled;
+      try {
+        localStorage.setItem('hd_studio_whitening_enabled', enabled ? 'true' : 'false');
+      } catch (e) {}
+
+      const btnOn = document.getElementById('btn-config-whitening-on');
+      const btnOff = document.getElementById('btn-config-whitening-off');
+      if (btnOn && btnOff) {
+        btnOn.classList.toggle('active', enabled);
+        btnOff.classList.toggle('active', !enabled);
+      }
+    }
 
     // إعدادات التبييض والأوضاع
     const presetsConfig = {
@@ -1009,6 +1166,11 @@
       document.getElementById('txt-app-title').innerText = data.appTitle;
       document.getElementById('txt-btn-cam').innerText = data.btnCam;
       document.getElementById('txt-btn-gallery').innerText = data.btnGallery;
+      document.getElementById('txt-config-heading').innerText = data.configHeading;
+      document.getElementById('txt-opt-on-title').innerText = data.optOnTitle;
+      document.getElementById('txt-opt-on-sub').innerText = data.optOnSub;
+      document.getElementById('txt-opt-off-title').innerText = data.optOffTitle;
+      document.getElementById('txt-opt-off-sub').innerText = data.optOffSub;
       document.getElementById('txt-loading').innerText = data.loading;
       document.getElementById('txt-preview-title').innerText = data.previewTitle;
       document.getElementById('txt-preview-sub').innerText = data.previewSub;
@@ -1017,7 +1179,6 @@
       document.getElementById('txt-btn-save-white').innerText = data.btnSaveWhite;
       document.getElementById('txt-btn-save-orig').innerText = data.btnSaveOrig;
       document.getElementById('txt-btn-save-png').innerText = data.btnSavePng;
-      document.getElementById('txt-btn-save-std').innerText = data.btnSaveStd;
       document.getElementById('txt-btn-retake').innerText = data.btnRetake;
 
       document.getElementById('txt-alert-header').innerText = data.alertHeader;
@@ -1046,6 +1207,8 @@
       document.getElementById('txt-install-guide-title').innerText = data.installGuideTitle;
       document.getElementById('txt-install-guide-body').innerHTML = data.installGuideBody;
       document.getElementById('txt-install-guide-ok').innerText = data.installGuideOk;
+      const alreadyBtn = document.getElementById('txt-already-installed-btn');
+      if (alreadyBtn && data.alreadyInstalledBtn) alreadyBtn.innerText = data.alreadyInstalledBtn;
 
       // ترجمة الفوتر
       document.getElementById('txt-footer-rights').innerText = data.footerRights;
@@ -1238,23 +1401,38 @@
       pMaskCtx.imageSmoothingQuality = 'high';
       pMaskCtx.drawImage(cachedRawMaskCanvas, 0, 0, pWidth, pHeight);
 
-      // إعادة تعيين إلى وضع الاستوديو المثالي
-      currentPreviewMode = 'white';
-      currentPreset = 'studio';
-      whiteningSettings = { ...presetsConfig.studio };
-      syncSlidersWithSettings();
-      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
-      const stdBtn = document.getElementById('preset-studio');
-      if (stdBtn) stdBtn.classList.add('active');
-
-      document.getElementById('btn-mode-white').classList.add('active');
-      document.getElementById('btn-mode-orig').classList.remove('active');
-      document.getElementById('btn-mode-trans').classList.remove('active');
-      previewBox.className = 'preview-box bg-white-mode';
-
-      // معالجة بالدقة الكاملة وتحديث المعاينة
+      // معالجة بالدقة الكاملة
       runWhiteningPipeline({ fullResolution: true });
       fullResDirty = false;
+
+      // ضبط الوضع المبدئي بناءً على إعدادات البداية التي اختارها المستخدم
+      if (initialWhiteningEnabled) {
+        currentPreviewMode = 'white';
+        currentPreset = 'studio';
+        whiteningSettings = { ...presetsConfig.studio };
+        syncSlidersWithSettings();
+        document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+        const stdBtn = document.getElementById('preset-studio');
+        if (stdBtn) stdBtn.classList.add('active');
+
+        document.getElementById('btn-mode-white').classList.add('active');
+        document.getElementById('btn-mode-orig').classList.remove('active');
+        document.getElementById('btn-mode-trans').classList.remove('active');
+        previewBox.className = 'preview-box bg-white-mode';
+        updatePreviewDisplay(fullWhiteCanvas, fullCutoutCanvas);
+      } else {
+        currentPreviewMode = 'original';
+        currentPreset = 'original';
+        document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+        const origBtn = document.getElementById('preset-orig');
+        if (origBtn) origBtn.classList.add('active');
+
+        document.getElementById('btn-mode-white').classList.remove('active');
+        document.getElementById('btn-mode-orig').classList.add('active');
+        document.getElementById('btn-mode-trans').classList.remove('active');
+        previewBox.className = 'preview-box bg-original-mode';
+        updatePreviewDisplay(fullWhiteCanvas, fullCutoutCanvas);
+      }
 
       loadingBar.style.display = 'none';
       studentNameInput.value = '';
@@ -1484,7 +1662,7 @@
     }
 
     /* =========================================================================
-       تحميل الصور بجودة غير مضغوطة وبخيارات متعددة
+       تحميل الصور بمقاس ثابت وموحد 166×200 لجميع الأنواع وبجودة سريعة وخفيفة
        ========================================================================= */
     function downloadImage(type) {
       const name = studentNameInput.value.trim();
@@ -1493,8 +1671,8 @@
         return;
       }
 
-      // إذا كانت التعديلات الحالية بالدقة المخففة فقط، نُشغل الدقة الأصلية العالية قبل التحميل
-      if (fullResDirty && (type === 'white-hd' || (type === 'standard' && currentPreviewMode !== 'original'))) {
+      // إذا كانت التعديلات الحالية بالدقة المخففة فقط، نُشغل المعالجة الكاملة قبل التحجيم لـ 166×200
+      if (fullResDirty && (type !== 'original' && type !== 'original-hd')) {
         runWhiteningPipeline({ fullResolution: true });
         fullResDirty = false;
       }
@@ -1502,57 +1680,71 @@
       const cleanName = name.replace(/[/\\?%*:|"<>]/g, '_');
       const link = document.createElement('a');
 
-      if (type === 'white-hd') {
-        // حفظ خلفية بيضاء نقية بجودة أصلية فائقة
-        link.download = `${cleanName}_White_HD.jpg`;
-        link.href = fullWhiteCanvas.toDataURL('image/jpeg', 1.0);
-      } else if (type === 'original-hd') {
-        // حفظ الصورة بالخلفية الأصلية بدون أي تبييض أو عزل
-        const origCanvas = document.createElement('canvas');
-        origCanvas.width = cachedOriginalImg.width;
-        origCanvas.height = cachedOriginalImg.height;
-        origCanvas.getContext('2d').drawImage(cachedOriginalImg, 0, 0);
-        link.download = `${cleanName}_Original.jpg`;
-        link.href = origCanvas.toDataURL('image/jpeg', 1.0);
-      } else if (type === 'png-transparent') {
-        // حفظ PNG مفرغ تماماً بدون أي خلفية بدقة أصلية
-        link.download = `${cleanName}_Cutout.png`;
-        link.href = fullCutoutCanvas.toDataURL('image/png');
-      } else if (type === 'standard') {
-        // حفظ بمقاس الهوية 200×160 بنسبة تناسبية ذكية بدون مط أو تشويه
-        const stdCanvas = document.createElement('canvas');
-        stdCanvas.width = 200;
-        stdCanvas.height = 160;
-        const stdCtx = stdCanvas.getContext('2d');
-        stdCtx.imageSmoothingEnabled = true;
-        stdCtx.imageSmoothingQuality = 'high';
+      // المقاس الثابت لجميع الأنواع: 166 عرض × 200 ارتفاع
+      const targetW = 166;
+      const targetH = 200;
+      const outCanvas = document.createElement('canvas');
+      outCanvas.width = targetW;
+      outCanvas.height = targetH;
+      const outCtx = outCanvas.getContext('2d');
+      outCtx.imageSmoothingEnabled = true;
+      outCtx.imageSmoothingQuality = 'high';
 
-        // تحديد المصدر: إذا كان المستخدم في وضع "بدون تبييض"، يستخدم الصورة الأصلية لمقاس الهوية
-        const useOrig = (currentPreviewMode === 'original');
-        const sourceCanvas = useOrig ? cachedOriginalImg : fullWhiteCanvas;
+      if (type === 'white' || type === 'white-hd' || type === 'standard') {
+        // 1. خلفية بيضاء نقية بمقاس 166×200
+        outCtx.fillStyle = '#FFFFFF';
+        outCtx.fillRect(0, 0, targetW, targetH);
 
-        if (!useOrig) {
-          // تعبئة خلفية بيضاء نقية
-          stdCtx.fillStyle = '#FFFFFF';
-          stdCtx.fillRect(0, 0, 200, 160);
-        }
-
-        // وضع الشخص في المنتصف بالحفاظ على تناسق الجسم
-        const hRatio = 200 / sourceCanvas.width;
-        const vRatio = 160 / sourceCanvas.height;
+        const hRatio = targetW / fullWhiteCanvas.width;
+        const vRatio = targetH / fullWhiteCanvas.height;
         const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (targetW - fullWhiteCanvas.width * ratio) / 2;
+        const centerShiftY = (targetH - fullWhiteCanvas.height * ratio) / 2;
 
-        const centerShiftX = (200 - sourceCanvas.width * ratio) / 2;
-        const centerShiftY = (160 - sourceCanvas.height * ratio) / 2;
-
-        stdCtx.drawImage(
-          sourceCanvas,
-          0, 0, sourceCanvas.width, sourceCanvas.height,
-          centerShiftX, centerShiftY, sourceCanvas.width * ratio, sourceCanvas.height * ratio
+        outCtx.drawImage(
+          fullWhiteCanvas,
+          0, 0, fullWhiteCanvas.width, fullWhiteCanvas.height,
+          centerShiftX, centerShiftY, fullWhiteCanvas.width * ratio, fullWhiteCanvas.height * ratio
         );
 
-        link.download = useOrig ? `${cleanName}_ID_Original_200x160.jpg` : `${cleanName}_ID_200x160.jpg`;
-        link.href = stdCanvas.toDataURL('image/jpeg', 0.98);
+        link.download = `${cleanName}_White_166x200.jpg`;
+        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
+
+      } else if (type === 'original' || type === 'original-hd') {
+        // 2. الخلفية الأصلية بدون تبييض بمقاس 166×200
+        const hRatio = targetW / cachedOriginalImg.width;
+        const vRatio = targetH / cachedOriginalImg.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (targetW - cachedOriginalImg.width * ratio) / 2;
+        const centerShiftY = (targetH - cachedOriginalImg.height * ratio) / 2;
+
+        outCtx.drawImage(
+          cachedOriginalImg,
+          0, 0, cachedOriginalImg.width, cachedOriginalImg.height,
+          centerShiftX, centerShiftY, cachedOriginalImg.width * ratio, cachedOriginalImg.height * ratio
+        );
+
+        link.download = `${cleanName}_Original_166x200.jpg`;
+        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
+
+      } else if (type === 'png' || type === 'png-transparent') {
+        // 3. صورة مفرغة PNG شفافة بمقاس 166×200
+        outCtx.clearRect(0, 0, targetW, targetH);
+
+        const hRatio = targetW / fullCutoutCanvas.width;
+        const vRatio = targetH / fullCutoutCanvas.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (targetW - fullCutoutCanvas.width * ratio) / 2;
+        const centerShiftY = (targetH - fullCutoutCanvas.height * ratio) / 2;
+
+        outCtx.drawImage(
+          fullCutoutCanvas,
+          0, 0, fullCutoutCanvas.width, fullCutoutCanvas.height,
+          centerShiftX, centerShiftY, fullCutoutCanvas.width * ratio, fullCutoutCanvas.height * ratio
+        );
+
+        link.download = `${cleanName}_Cutout_166x200.png`;
+        link.href = outCanvas.toDataURL('image/png');
       }
 
       link.click();
@@ -1573,11 +1765,38 @@
       document.getElementById('installGuideModal').style.display = 'none';
     }
 
-    // إدارة تثبيت التطبيق PWA على جميع الأجهزة
+    // إدارة تثبيت التطبيق PWA على جميع الأجهزة وإخفاء الزر عند التثبيت
     let deferredInstallPrompt = null;
     const btnInstallApp = document.getElementById('btn-install-app');
 
+    function checkInstalledStatus() {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                           window.matchMedia('(display-mode: minimal-ui)').matches ||
+                           window.matchMedia('(display-mode: fullscreen)').matches ||
+                           window.matchMedia('(display-mode: window-controls-overlay)').matches ||
+                           window.navigator.standalone === true ||
+                           document.referrer.includes('android-app://') ||
+                           localStorage.getItem('hd_studio_app_installed') === 'true';
+
+      if (isStandalone && btnInstallApp) {
+        btnInstallApp.style.display = 'none';
+      }
+    }
+
+    function hideInstallButtonPermanently() {
+      localStorage.setItem('hd_studio_app_installed', 'true');
+      if (btnInstallApp) btnInstallApp.style.display = 'none';
+      closeInstallGuideModal();
+    }
+
+    // فحص فوري
+    checkInstalledStatus();
+
     window.addEventListener('beforeinstallprompt', (e) => {
+      if (localStorage.getItem('hd_studio_app_installed') === 'true') {
+        if (btnInstallApp) btnInstallApp.style.display = 'none';
+        return;
+      }
       e.preventDefault();
       deferredInstallPrompt = e;
       if (btnInstallApp) {
@@ -1587,6 +1806,7 @@
 
     window.addEventListener('appinstalled', () => {
       deferredInstallPrompt = null;
+      localStorage.setItem('hd_studio_app_installed', 'true');
       if (btnInstallApp) {
         btnInstallApp.style.display = 'none';
       }
@@ -1598,6 +1818,8 @@
         deferredInstallPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
             console.log('User installed the PWA app');
+            localStorage.setItem('hd_studio_app_installed', 'true');
+            if (btnInstallApp) btnInstallApp.style.display = 'none';
           }
           deferredInstallPrompt = null;
         });
@@ -1612,11 +1834,14 @@
         navigator.serviceWorker.register('./sw.js')
           .then((reg) => console.log('PWA ServiceWorker registered with scope:', reg.scope))
           .catch((err) => console.log('ServiceWorker registration error:', err));
+        checkInstalledStatus();
       });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      checkInstalledStatus();
       setLang('bad');
+      setInitialWhitening(initialWhiteningEnabled);
     });
   </script>
 </body>
