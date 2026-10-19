@@ -250,6 +250,23 @@
 
     .btn-camera { background-color: var(--primary); }
     .btn-gallery { background-color: var(--gallery-btn); }
+    .btn-archive {
+      background: linear-gradient(135deg, #2B6CB0, #2C5282);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .archive-count-badge {
+      background: #ECC94B;
+      color: #744210;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-inline-start: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.18);
+    }
     .btn-install-app { background: linear-gradient(135deg, #3182CE, #6B46C1); }
 
     /* إخفاء زر التثبيت تلقائياً عند فتح البرنامج كتطبيق مثبت */
@@ -267,6 +284,223 @@
     .btn-save-std { background-color: #4A5568; }
     .btn-retake { background-color: var(--danger); margin-top: 5px; }
     .btn-alert-ok { background-color: var(--primary); margin-top: 15px; }
+
+    /* زر إغلاق النوافذ ✕ */
+    .modal-close-x {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: #E2E8F0;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--text);
+      box-shadow: var(--clay-btn);
+      transition: 0.15s;
+      z-index: 10;
+    }
+    html[dir="ltr"] .modal-close-x {
+      left: auto;
+      right: 14px;
+    }
+    .modal-close-x:hover {
+      background: #CBD5E0;
+    }
+    .modal-close-x:active {
+      transform: scale(0.92);
+    }
+
+    /* إشعار حفظ الصورة وبقائها في البرنامج */
+    .save-toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #276749;
+      color: #FFFFFF;
+      padding: 13px 22px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .save-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* نافذة أرشيف صور الطلاب داخل البرنامج */
+    .archive-modal-card {
+      max-width: 500px !important;
+      position: relative;
+    }
+    .archive-header {
+      margin-bottom: 12px;
+      padding-top: 5px;
+    }
+    .archive-search-box {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 2px solid #CBD5E0;
+      background: #FFFFFF;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      box-shadow: var(--clay-inset);
+      outline: none;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    .archive-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .archive-clear-btn {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 2px 6px;
+    }
+    .archive-list {
+      max-height: 52vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 4px;
+    }
+    .archive-item {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      border: 1px solid #E2E8F0;
+      text-align: right;
+    }
+    html[dir="ltr"] .archive-item {
+      text-align: left;
+    }
+    .archive-thumb-wrap {
+      width: 56px;
+      height: 68px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid #E2E8F0;
+      background: repeating-conic-gradient(#EDF2F7 0% 25%, #FFF 0% 50%) 50% / 10px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .archive-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .archive-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .archive-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+    .archive-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .archive-tag {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 6px;
+      background: #EDF2F7;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .archive-tag.badge-hd {
+      background: #EBF8FF;
+      color: #2B6CB0;
+    }
+    .archive-tag.badge-std {
+      background: #FEFCBF;
+      color: #975A16;
+    }
+    .archive-date {
+      font-size: 10px;
+      color: #A0AEC0;
+    }
+    .archive-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .archive-act-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      transition: 0.15s;
+    }
+    .archive-act-btn.download {
+      background: var(--success);
+      color: #FFF;
+    }
+    .archive-act-btn.reopen {
+      background: var(--primary);
+      color: #FFF;
+    }
+    .archive-act-btn.delete {
+      background: #FED7D7;
+      color: var(--danger);
+    }
+    .archive-empty {
+      padding: 30px 15px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .archive-empty-icon {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
 
     #mobileCameraInput, #mobileGalleryInput {
       display: none;
@@ -297,6 +531,7 @@
       overflow-y: auto;
       padding: 20px;
       text-align: center;
+      position: relative;
       animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -370,6 +605,66 @@
       background: #FFFFFF;
       color: var(--primary);
       box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    }
+
+    /* شريط اختيار دقة وجودة الحفظ */
+    .quality-switch-container {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 16px;
+      padding: 10px 12px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      border: 1.5px solid #FFFFFF;
+      box-shadow: 3px 3px 8px #bec5ce, -3px -3px 8px #ffffff;
+      text-align: right;
+    }
+    [dir="ltr"] .quality-switch-container {
+      text-align: left;
+    }
+    .quality-switch-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #4A5568;
+      margin-bottom: 7px;
+    }
+    .quality-switch-bar {
+      display: flex;
+      gap: 6px;
+      background: var(--window-bg);
+      padding: 4px;
+      border-radius: 12px;
+      box-shadow: var(--clay-inset);
+    }
+    .q-switch-btn {
+      flex: 1;
+      padding: 8px 6px;
+      border: none;
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .q-switch-btn.active {
+      background: #FFFFFF;
+      color: var(--primary);
+      box-shadow: 2px 2px 5px rgba(90, 103, 216, 0.25);
+    }
+    .quality-hint-tag {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+      text-align: center;
     }
 
     /* شريط الأوضاع المسبقة للتبييض السريع */
@@ -716,6 +1011,12 @@
         <span style="font-size: 20px;">🖼️</span> <span id="txt-btn-gallery">هەلبژارتن ژ گەلەریێ</span>
       </button>
 
+      <!-- زر أرشيف صور الطلاب داخل البرنامج -->
+      <button class="clay-btn btn-archive" id="btn-open-archive" onclick="openArchiveModal()">
+        <span style="font-size: 20px;">📁</span> <span id="txt-btn-archive">ئەرشیڤێ وێنەیێن قوتابیان</span>
+        <span class="archive-count-badge" id="archive-count-badge">0</span>
+      </button>
+
       <!-- زر تثبيت البرنامج على جميع الأجهزة -->
       <button class="clay-btn btn-install-app" id="btn-install-app" onclick="triggerAppInstall()">
         <span style="font-size: 20px;">📲</span> <span id="txt-btn-install">تثبيت كبرنامج على الجهاز</span>
@@ -761,6 +1062,7 @@
   <!-- نافذة المعاينة والخيارات -->
   <div class="modal-overlay" id="previewModal">
     <div class="modal-card">
+      <button class="modal-close-x" onclick="closeModal()" title="إغلاق / گرتن">✕</button>
       <h3 style="font-size: 16px; margin-bottom: 2px;" id="txt-preview-title">دیتنا وێنەیێ بدووماهیک هاتی</h3>
       <p style="font-size: 11px; color: var(--text-muted);" id="txt-preview-sub">کوالێتیا ستۆدیۆ ب پاشبنەمایەکا سپیا نایاب و بێ هێلێن رەش</p>
 
@@ -846,7 +1148,26 @@
       <input type="text" id="studentName" class="input-box" placeholder="ناڤێ قوتابی لڤێرە بنڤیسە...">
       <p class="field-hint" id="txt-hint">وێنە دێ ب ڤی ناڤی هێتە پاراستن د مۆبایلێ دا</p>
 
-      <!-- أزرار الحفظ بمقاس ثابت 166×200 لجميع الأنواع -->
+      <!-- شريط اختيار دقة وجودة الحفظ: HD أو مقاس الهوية المدرسية 166×200 -->
+      <div class="quality-switch-container">
+        <div class="quality-switch-header">
+          <span style="font-size: 13px;">📐</span>
+          <span id="txt-quality-title">کوالێتی و قەبارێ پاراستنا وێنەی:</span>
+        </div>
+        <div class="quality-switch-bar">
+          <button type="button" class="q-switch-btn active" id="btn-q-hd" onclick="setQualityMode('hd')">
+            <span>💎</span> <span id="txt-q-hd">کوالێتیا بەرز (HD ستۆدیۆ)</span>
+          </button>
+          <button type="button" class="q-switch-btn" id="btn-q-std" onclick="setQualityMode('std')">
+            <span>💳</span> <span id="txt-q-std">قەبارێ ناسنامێ (166×200)</span>
+          </button>
+        </div>
+        <div class="quality-hint-tag" id="txt-quality-hint">
+          💎 کوالێتیا ستۆدیۆ یا نایاب (830×1000) بێ تێکچوونا روونیێ، بۆ چاپکرن و شاشێن بەرز گونجایە.
+        </div>
+      </div>
+
+      <!-- أزرار الحفظ -->
       <button class="clay-btn btn-save-white" onclick="downloadImage('white')">
         <span>⚪</span> <span id="txt-btn-save-white">پاراستن: پاشبنەما سپی (166×200)</span>
       </button>
@@ -897,6 +1218,42 @@
     </div>
   </div>
 
+  <!-- نافذة أرشيف صور الطلاب داخل البرنامج -->
+  <div class="modal-overlay" id="archiveModal" style="z-index: 1005;">
+    <div class="modal-card archive-modal-card">
+      <button class="modal-close-x" onclick="closeArchiveModal()" title="إغلاق / گرتن">✕</button>
+      <div class="archive-header">
+        <div style="font-size: 32px; margin-bottom: 4px;">📁</div>
+        <h3 style="font-size: 16px; margin-bottom: 4px;" id="txt-archive-title">ئەرشیڤێ وێنەیێن قوتابیان د بەرنامەی دا</h3>
+        <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5;" id="txt-archive-sub">هەمی ئەو وێنەیێن تە پاراستین لڤێرە د ئەپێ دا دپاراستینە و چ جار ناهێنە ژێبرن</p>
+      </div>
+
+      <input type="text" class="archive-search-box" id="archiveSearchInput" placeholder="🔍 لێگەڕیان ب ناڤێ قوتابی..." oninput="onArchiveSearch(this.value)">
+
+      <div class="archive-toolbar">
+        <div>
+          <span id="txt-archive-count-label">سەرجەمێ وێنەیان:</span>
+          <strong id="archiveTotalCountDisplay">0</strong>
+        </div>
+        <button class="archive-clear-btn" id="txt-archive-clear-btn" onclick="confirmClearArchive()">پاقژکرنا هەمی ئەرشیڤی 🗑️</button>
+      </div>
+
+      <div class="archive-list" id="archiveListContainer">
+        <!-- يتم ملء قائمة الصور المحفوظة بالجافاسكربت -->
+      </div>
+
+      <button class="clay-btn btn-retake" onclick="closeArchiveModal()" style="margin-top: 12px;">
+        <span id="txt-archive-close-btn">داخستن</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- إشعار حفظ وبقاء الصورة في البرنامج -->
+  <div class="save-toast" id="saveToast">
+    <span>✅</span>
+    <span id="txt-save-toast">وێنە هاتە پاراستن و د بەرنامەی دا مایە!</span>
+  </div>
+
   <script>
     const i18n = {
       bad: {
@@ -904,6 +1261,20 @@
         appTitle: 'ستۆدیۆیا پێناسێن قوتابیان',
         btnCam: 'وێنەگرتن ب کامیرایێ',
         btnGallery: 'هەلبژارتن ژ گەلەریێ',
+        btnArchive: 'ئەرشیڤێ وێنەیێن قوتابیان',
+        archiveTitle: 'ئەرشیڤێ وێنەیێن قوتابیان د بەرنامەی دا',
+        archiveSub: 'هەمی ئەو وێنەیێن تە پاراستین لڤێرە د ئەپێ دا دپاراستینە و چ جار ناهێنە ژێبرن',
+        archiveSearch: '🔍 لێگەڕیان ب ناڤێ قوتابی...',
+        archiveCountLabel: 'سەرجەمێ وێنەیان:',
+        archiveClearBtn: 'پاقژکرنا هەمی ئەرشیڤی 🗑️',
+        archiveCloseBtn: 'داخستن',
+        archiveDownload: 'داگرتن 📥',
+        archiveOpen: 'دیتن 👁️',
+        archiveDelete: 'ژێبرن 🗑️',
+        archiveEmpty: 'چ وێنە نەهاتینە پاراستن هەتا نوکە!',
+        archiveEmptySub: 'دەما تو وێنەیێ قوتابیەکێ دپارێزی، لڤێرە د بەرنامەی دا دێ مینیت و چ جار ناهێتە ژێبرن.',
+        archiveConfirmClear: 'ئەرێ تو پشتڕاستی د تەڤایا وێنەیێن ئەرشیڤی د بەرنامەی دا ژێببەی؟',
+        saveToast: 'وێنە هاتە پاراستن و د بەرنامەی دا مایە! ✅',
         configHeading: 'ڕێکخستنا سپیکرنا پاشبنەمایێ (ژ دەستپێکێ):',
         optOnTitle: 'سپیکرنا پاشبنەمایێ (کارایە)',
         optOnSub: 'پاشبنەما دێ هێتە سپیکرن ب ستۆدیۆ',
@@ -914,9 +1285,17 @@
         previewSub: 'کوالێتیا ستۆدیۆ ب پاشبنەمایەکا سپیا نایاب و بێ هێلێن رەش',
         namePlaceholder: 'ناڤێ قوتابی لڤێرە بنڤیسە...',
         hint: 'وێنە دێ ب ڤی ناڤی هێتە پاراستن د ئامیرێ تە دا',
-        btnSaveWhite: 'پاراستن: پاشبنەما سپی (166×200)',
-        btnSaveOrig: 'پاراستن: ب پاشبنەما بنەڕەتی (166×200)',
-        btnSavePng: 'پاراستن: PNG شەفاف بێ پاشبنەما (166×200)',
+        qualityTitle: 'کوالێتی و قەبارێ پاراستنا وێنەی:',
+        qHd: 'کوالێتیا بەرز (HD ستۆدیۆ)',
+        qStd: 'قەبارێ ناسنامێ (166×200)',
+        qHintHd: '💎 کوالێتیا ستۆدیۆ یا نایاب (830×1000) بێ تێکچوونا روونیێ، بۆ چاپکرن و شاشێن بەرز گونجایە.',
+        qHintStd: '💳 قەبارێ فەرمی یێ سیستەمێ پەروەردە (166×200) ب فلتەرێ تیژکرنا هویر بۆ نەهێلانا لێلبوونێ.',
+        btnSaveWhiteHd: 'پاراستن: پاشبنەما سپی (HD ستۆدیۆ)',
+        btnSaveOrigHd: 'پاراستن: ب پاشبنەما بنەڕەتی (HD ستۆدیۆ)',
+        btnSavePngHd: 'پاراستن: PNG شەفاف (HD ستۆدیۆ)',
+        btnSaveWhiteStd: 'پاراستن: پاشبنەما سپی (166×200)',
+        btnSaveOrigStd: 'پاراستن: ب پاشبنەما بنەڕەتی (166×200)',
+        btnSavePngStd: 'پاراستن: PNG شەفاف (166×200)',
         btnRetake: 'دووبارە هەلبژارتن',
         alertHeader: 'هشیاری!',
         alertContent: 'هیڤیدکەین سەرەتا ناڤێ قوتابی د خانیا دیارکری دا بنڤیسە دا کو وێنە بهێتە پاراستن!',
@@ -949,6 +1328,20 @@
         appTitle: 'ستۆدیۆی ناسنامەی قوتابیان HD',
         btnCam: 'گرتنی وێنە بە کامێرا',
         btnGallery: 'هەڵبژاردن لە گەلەری',
+        btnArchive: 'ئەرشیفی وێنەی قوتابیان',
+        archiveTitle: 'ئەرشیفی وێنە پاشەکەوتکراوەکان لە بەرنامەدا',
+        archiveSub: 'هەموو ئەو وێنانەی پاشەکەوتت کردوون لێرە لەناو بەرنامە پارێزراون و ناسڕێنەوە',
+        archiveSearch: '🔍 گەڕان بە ناوی قوتابی...',
+        archiveCountLabel: 'کۆی وێنەکان:',
+        archiveClearBtn: 'سڕینەوەی هەموو ئەرشیف 🗑️',
+        archiveCloseBtn: 'داخستن',
+        archiveDownload: 'داگرتن 📥',
+        archiveOpen: 'بینین 👁️',
+        archiveDelete: 'سڕینەوە 🗑️',
+        archiveEmpty: 'هیچ وێنەیەک پاشەکەوت نەکراوە تا ئێستا!',
+        archiveEmptySub: 'کاتێک وێنەی قوتابی خەزن دەکەیت، لێرە لەناو بەرنامەدا دەمێنێتەوە و ناسڕێتەوە.',
+        archiveConfirmClear: 'ئایا دڵنیایت لە سڕینەوەی هەموو وێنەکانی ناو ئەرشیفی بەرنامە؟',
+        saveToast: 'وێنەکە پاشەکەوت کرا و لە بەرنامەدا مایەوە! ✅',
         configHeading: 'ڕێکخستنی سپیکردنی پاشبنەما (لە سەرەتاوە):',
         optOnTitle: 'سپیکردنی پاشبنەما (چالاکە)',
         optOnSub: 'پاشبنەما سپی دەکرێتەوە بە شێوازی ستۆدیۆ',
@@ -959,9 +1352,17 @@
         previewSub: 'کوالێتی ستۆدیۆ بە پاشبنەمای سپی بێ هێڵ و بێ سێبەر',
         namePlaceholder: 'ناوی قوتابی لێرە بنووسە...',
         hint: 'وێنەکە بەم ناوەوە لە مۆبایل پاشەکەوت دەکرێت',
-        btnSaveWhite: 'خەزنکردن: سپی (166×200)',
-        btnSaveOrig: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (166×200)',
-        btnSavePng: 'خەزنکردن: وەک PNG شەفاف (166×200)',
+        qualityTitle: 'کوالێتی و قەبارەی خەزنکردنی وێنە:',
+        qHd: 'کوالێتی بەرز (HD ستۆدیۆ)',
+        qStd: 'قەبارەی ناسنامە (166×200)',
+        qHintHd: '💎 کوالێتی ستۆدیۆی نایاب (830×1000) بێ تێکچوونی وردەکارییەکان و بۆ چاپکردن گونجاوە.',
+        qHintStd: '💳 قەبارەی ڕاستەقینەی پەروەردە (166×200) بە فلتەری تیژکردنی تایبەت بۆ نەهێشتنی تەڵخی.',
+        btnSaveWhiteHd: 'خەزنکردن: سپی (HD ستۆدیۆ)',
+        btnSaveOrigHd: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (HD ستۆدیۆ)',
+        btnSavePngHd: 'خەزنکردن: وەک PNG شەفاف (HD ستۆدیۆ)',
+        btnSaveWhiteStd: 'خەزنکردن: سپی (166×200)',
+        btnSaveOrigStd: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (166×200)',
+        btnSavePngStd: 'خەزنکردن: وەک PNG شەفاف (166×200)',
         btnRetake: 'دووبارە هەڵبژاردنەوە',
         alertHeader: 'ئاگاداری!',
         alertContent: 'تکایە سەرەتا ناوی قوتابی بنووسە بۆ ئەوەی وێنەکە پاشەکەوت بکرێت!',
@@ -994,6 +1395,20 @@
         appTitle: 'استوديو بطاقات الطلاب الفائق HD',
         btnCam: 'التقاط بالكاميرا',
         btnGallery: 'اختيار من المعرض',
+        btnArchive: 'أرشيف صور الطلاب في البرنامج',
+        archiveTitle: 'أرشيف صور الطلاب المحفوظة في البرنامج',
+        archiveSub: 'جميع الصور التي قمت بحفظها تبقى محفوظة هنا داخل البرنامج ولا تُحذف نهائياً',
+        archiveSearch: '🔍 ابحث باسم الطالب...',
+        archiveCountLabel: 'إجمالي الصور المحفوظة:',
+        archiveClearBtn: 'مسح كافة الأرشيف 🗑️',
+        archiveCloseBtn: 'إغلاق',
+        archiveDownload: 'تنزيل 📥',
+        archiveOpen: 'عرض 👁️',
+        archiveDelete: 'حذف 🗑️',
+        archiveEmpty: 'لا توجد صور محفوظة في البرنامج حتى الآن!',
+        archiveEmptySub: 'عندما تقوم بحفظ أي صورة، ستبقى هنا داخل البرنامج دائماً ولن تُحذف أبداً.',
+        archiveConfirmClear: 'هل أنت متأكد من مسح جميع الصور المخزنة في أرشيف البرنامج نهائياً؟',
+        saveToast: 'تم حفظ الصورة وبقاؤها داخل البرنامج في الأرشيف! ✅',
         configHeading: 'إعدادات تبييض الخلفية (من البداية):',
         optOnTitle: 'تبييض الخلفية بالذكاء الاصطناعي (مُفعّل)',
         optOnSub: 'عزل وإزالة الظلال وتحويل الخلفية إلى بيضاء نقية',
@@ -1004,9 +1419,17 @@
         previewSub: 'عزل فائق النقاء وإضاءة استوديو متوازنة مع إمكانية إبقاء الخلفية الأصلية',
         namePlaceholder: 'اكتب اسم الطالب هنا...',
         hint: 'سيتم حفظ الملف بهذا الاسم في جهازك',
-        btnSaveWhite: 'حفظ: خلفية بيضاء نقية (166×200)',
-        btnSaveOrig: 'حفظ: بالخلفية الأصلية (166×200)',
-        btnSavePng: 'حفظ: بصيغة PNG مفرغة (166×200)',
+        qualityTitle: 'دقة وحجم حفظ الصورة:',
+        qHd: 'دقة فائقة (HD ستوديو)',
+        qStd: 'مقاس الهوية (166×200)',
+        qHintHd: '💎 دقة استوديو كاملة ونقية (830×1000) بنسبة 166:200 بدون أي فقدان للجودة ومثالية للطباعة.',
+        qHintStd: '💳 مقاس النظام المدرسي المباشر (166×200) مع معالجة ذكية لمنع الضبابية وتوضيح الملامح.',
+        btnSaveWhiteHd: 'حفظ: خلفية بيضاء نقية (HD ستوديو)',
+        btnSaveOrigHd: 'حفظ: بالخلفية الأصلية (HD ستوديو)',
+        btnSavePngHd: 'حفظ: بصيغة PNG مفرغة (HD ستوديو)',
+        btnSaveWhiteStd: 'حفظ: خلفية بيضاء (166×200 فائق الحدة)',
+        btnSaveOrigStd: 'حفظ: بالخلفية الأصلية (166×200 فائق الحدة)',
+        btnSavePngStd: 'حفظ: بصيغة PNG (166×200 فائق الحدة)',
         btnRetake: 'إعادة المحاولة / صورة أخرى',
         alertHeader: 'تنبيه!',
         alertContent: 'يرجى كتابة اسم الطالب أولاً في الخانة المخصصة قبل الحفظ!',
@@ -1039,6 +1462,20 @@
         appTitle: 'STUDENT STUDIO PRO HD',
         btnCam: 'Take Photo',
         btnGallery: 'Upload from Gallery',
+        btnArchive: 'Student Photos Archive',
+        archiveTitle: 'Archived Student Photos in App',
+        archiveSub: 'All saved photos remain permanently inside the app and are never lost',
+        archiveSearch: '🔍 Search by student name...',
+        archiveCountLabel: 'Total Photos:',
+        archiveClearBtn: 'Clear All Archive 🗑️',
+        archiveCloseBtn: 'Close',
+        archiveDownload: 'Download 📥',
+        archiveOpen: 'View 👁️',
+        archiveDelete: 'Delete 🗑️',
+        archiveEmpty: 'No student photos saved yet!',
+        archiveEmptySub: 'When you save a student photo, it will stay here in the app forever.',
+        archiveConfirmClear: 'Are you sure you want to clear all archived photos in the app?',
+        saveToast: 'Photo saved and retained inside the app! ✅',
         configHeading: 'Background Whitening Setting (From Start):',
         optOnTitle: 'Studio White Background (Enabled)',
         optOnSub: 'Remove shadows and whiten background',
@@ -1049,9 +1486,17 @@
         previewSub: 'Studio-grade cutout with defringing, lighting balance & original or white BG',
         namePlaceholder: 'Enter student name here...',
         hint: 'File will be saved with this name',
-        btnSaveWhite: 'Save: Pure White BG (166×200)',
-        btnSaveOrig: 'Save: Original BG (166×200)',
-        btnSavePng: 'Save: Transparent PNG (166×200)',
+        qualityTitle: 'Download Resolution & Size:',
+        qHd: 'Ultra HD (Studio Quality)',
+        qStd: 'School ID Size (166×200)',
+        qHintHd: '💎 Studio HD resolution (830×1000) in exact 166:200 ratio with zero quality loss, great for printing.',
+        qHintStd: '💳 Exact 166×200 portal size with stepped downsampling & sharpness filter to prevent blur.',
+        btnSaveWhiteHd: 'Save: Pure White BG (Studio HD)',
+        btnSaveOrigHd: 'Save: Original BG (Studio HD)',
+        btnSavePngHd: 'Save: Transparent PNG (Studio HD)',
+        btnSaveWhiteStd: 'Save: Pure White BG (166×200 Sharp)',
+        btnSaveOrigStd: 'Save: Original BG (166×200 Sharp)',
+        btnSavePngStd: 'Save: Transparent PNG (166×200 Sharp)',
         btnRetake: 'Retake / Choose Another',
         alertHeader: 'Notice!',
         alertContent: 'Please enter student name before downloading!',
@@ -1104,6 +1549,43 @@
       if (btnOn && btnOff) {
         btnOn.classList.toggle('active', enabled);
         btnOff.classList.toggle('active', !enabled);
+      }
+    }
+
+    // إدارة دقة وجودة الحفظ (HD فائقة بنسبة 166:200 أو مقاس الهوية 166×200 فائق الحدة)
+    let currentQualityMode = 'hd'; // 'hd' or 'std'
+    try {
+      const savedQ = localStorage.getItem('hd_studio_quality_mode');
+      if (savedQ) currentQualityMode = savedQ;
+    } catch (e) {}
+
+    function setQualityMode(mode) {
+      currentQualityMode = mode;
+      try {
+        localStorage.setItem('hd_studio_quality_mode', mode);
+      } catch (e) {}
+
+      const btnHd = document.getElementById('btn-q-hd');
+      const btnStd = document.getElementById('btn-q-std');
+      if (btnHd && btnStd) {
+        btnHd.classList.toggle('active', mode === 'hd');
+        btnStd.classList.toggle('active', mode === 'std');
+      }
+
+      const data = i18n[currentLang];
+      const hint = document.getElementById('txt-quality-hint');
+      if (hint && data) {
+        hint.innerText = (mode === 'hd') ? data.qHintHd : data.qHintStd;
+      }
+
+      if (data) {
+        const isHd = (mode === 'hd');
+        const btnSaveWhite = document.getElementById('txt-btn-save-white');
+        const btnSaveOrig = document.getElementById('txt-btn-save-orig');
+        const btnSavePng = document.getElementById('txt-btn-save-png');
+        if (btnSaveWhite) btnSaveWhite.innerText = isHd ? data.btnSaveWhiteHd : data.btnSaveWhiteStd;
+        if (btnSaveOrig) btnSaveOrig.innerText = isHd ? data.btnSaveOrigHd : data.btnSaveOrigStd;
+        if (btnSavePng) btnSavePng.innerText = isHd ? data.btnSavePngHd : data.btnSavePngStd;
       }
     }
 
@@ -1166,6 +1648,23 @@
       document.getElementById('txt-app-title').innerText = data.appTitle;
       document.getElementById('txt-btn-cam').innerText = data.btnCam;
       document.getElementById('txt-btn-gallery').innerText = data.btnGallery;
+      const btnArchiveTxt = document.getElementById('txt-btn-archive');
+      if (btnArchiveTxt && data.btnArchive) btnArchiveTxt.innerText = data.btnArchive;
+      const arcTitle = document.getElementById('txt-archive-title');
+      if (arcTitle && data.archiveTitle) arcTitle.innerText = data.archiveTitle;
+      const arcSub = document.getElementById('txt-archive-sub');
+      if (arcSub && data.archiveSub) arcSub.innerText = data.archiveSub;
+      const arcSearch = document.getElementById('archiveSearchInput');
+      if (arcSearch && data.archiveSearch) arcSearch.placeholder = data.archiveSearch;
+      const arcCountLabel = document.getElementById('txt-archive-count-label');
+      if (arcCountLabel && data.archiveCountLabel) arcCountLabel.innerText = data.archiveCountLabel;
+      const arcClearBtn = document.getElementById('txt-archive-clear-btn');
+      if (arcClearBtn && data.archiveClearBtn) arcClearBtn.innerText = data.archiveClearBtn;
+      const arcCloseBtn = document.getElementById('txt-archive-close-btn');
+      if (arcCloseBtn && data.archiveCloseBtn) arcCloseBtn.innerText = data.archiveCloseBtn;
+      const saveToastTxt = document.getElementById('txt-save-toast');
+      if (saveToastTxt && data.saveToast) saveToastTxt.innerText = data.saveToast;
+
       document.getElementById('txt-config-heading').innerText = data.configHeading;
       document.getElementById('txt-opt-on-title').innerText = data.optOnTitle;
       document.getElementById('txt-opt-on-sub').innerText = data.optOnSub;
@@ -1176,9 +1675,10 @@
       document.getElementById('txt-preview-sub').innerText = data.previewSub;
       studentNameInput.placeholder = data.namePlaceholder;
       document.getElementById('txt-hint').innerText = data.hint;
-      document.getElementById('txt-btn-save-white').innerText = data.btnSaveWhite;
-      document.getElementById('txt-btn-save-orig').innerText = data.btnSaveOrig;
-      document.getElementById('txt-btn-save-png').innerText = data.btnSavePng;
+      document.getElementById('txt-quality-title').innerText = data.qualityTitle;
+      document.getElementById('txt-q-hd').innerText = data.qHd;
+      document.getElementById('txt-q-std').innerText = data.qStd;
+      setQualityMode(currentQualityMode);
       document.getElementById('txt-btn-retake').innerText = data.btnRetake;
 
       document.getElementById('txt-alert-header').innerText = data.alertHeader;
@@ -1218,6 +1718,13 @@
       document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
       const activeBtn = document.getElementById(`btn-${lang}`);
       if (activeBtn) activeBtn.classList.add('active');
+
+      // تحديث قائمة الأرشيف إذا كانت النافذة مفتوحة
+      const arcModal = document.getElementById('archiveModal');
+      if (arcModal && arcModal.style.display === 'flex') {
+        const query = document.getElementById('archiveSearchInput') ? document.getElementById('archiveSearchInput').value : '';
+        renderArchiveList(query);
+      }
     }
 
     function toggleTuningPanel() {
@@ -1662,7 +2169,423 @@
     }
 
     /* =========================================================================
-       تحميل الصور بمقاس ثابت وموحد 166×200 لجميع الأنواع وبجودة سريعة وخفيفة
+       معالجة تصغير متقدمة بدرجات متتالية (Stepped Downsampling & Sharpening)
+       تمنع أي فقدان للدقة أو ضبابية وتضمن أعلى وضوح ممكن لملامح الوجه والشعر
+       ========================================================================= */
+    function downscaleWithQuality(src, targetW, targetH, isTransparent = false) {
+      let curW = src.width;
+      let curH = src.height;
+
+      let curCanvas = document.createElement('canvas');
+      curCanvas.width = curW;
+      curCanvas.height = curH;
+      let curCtx = curCanvas.getContext('2d');
+      curCtx.imageSmoothingEnabled = true;
+      curCtx.imageSmoothingQuality = 'high';
+
+      if (!isTransparent) {
+        curCtx.fillStyle = '#FFFFFF';
+        curCtx.fillRect(0, 0, curW, curH);
+      }
+      curCtx.drawImage(src, 0, 0);
+
+      // تقليل الحجم تدريجياً بنسبة 50% لمنع تخطي البكسلات في المتصفح
+      while (curW * 0.5 > targetW * 1.25 && curH * 0.5 > targetH * 1.25) {
+        let stepW = Math.round(curW * 0.5);
+        let stepH = Math.round(curH * 0.5);
+
+        let stepCanvas = document.createElement('canvas');
+        stepCanvas.width = stepW;
+        stepCanvas.height = stepH;
+        let stepCtx = stepCanvas.getContext('2d');
+        stepCtx.imageSmoothingEnabled = true;
+        stepCtx.imageSmoothingQuality = 'high';
+
+        if (!isTransparent) {
+          stepCtx.fillStyle = '#FFFFFF';
+          stepCtx.fillRect(0, 0, stepW, stepH);
+        }
+
+        stepCtx.drawImage(curCanvas, 0, 0, curW, curH, 0, 0, stepW, stepH);
+
+        curCanvas = stepCanvas;
+        curW = stepW;
+        curH = stepH;
+      }
+
+      // المرحلة النهائية إلى المقاس المطلوب مع التوسيط بنسبة 166:200
+      const finalCanvas = document.createElement('canvas');
+      finalCanvas.width = targetW;
+      finalCanvas.height = targetH;
+      const finalCtx = finalCanvas.getContext('2d');
+      finalCtx.imageSmoothingEnabled = true;
+      finalCtx.imageSmoothingQuality = 'high';
+
+      if (!isTransparent) {
+        finalCtx.fillStyle = '#FFFFFF';
+        finalCtx.fillRect(0, 0, targetW, targetH);
+      } else {
+        finalCtx.clearRect(0, 0, targetW, targetH);
+      }
+
+      const hRatio = targetW / curW;
+      const vRatio = targetH / curH;
+      const ratio = Math.max(hRatio, vRatio);
+
+      const drawW = curW * ratio;
+      const drawH = curH * ratio;
+      const shiftX = (targetW - drawW) / 2;
+      const shiftY = (targetH - drawH) / 2;
+
+      finalCtx.drawImage(curCanvas, 0, 0, curW, curH, shiftX, shiftY, drawW, drawH);
+
+      // توضيح الحواف والتفاصيل بدقة عالية للصور الصغيرة (166×200) لمنع أي تشويش
+      if (targetW <= 300 && !isTransparent) {
+        applyUnsharpMask(finalCtx, targetW, targetH, 0.32);
+      }
+
+      return finalCanvas;
+    }
+
+    function applyUnsharpMask(ctx, w, h, strength = 0.32) {
+      try {
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const data = imgData.data;
+        const copy = new Uint8ClampedArray(data);
+
+        for (let y = 1; y < h - 1; y++) {
+          for (let x = 1; x < w - 1; x++) {
+            const idx = (y * w + x) * 4;
+            for (let c = 0; c < 3; c++) {
+              let center = copy[idx + c];
+              let top = copy[((y - 1) * w + x) * 4 + c];
+              let bottom = copy[((y + 1) * w + x) * 4 + c];
+              let left = copy[(y * w + (x - 1)) * 4 + c];
+              let right = copy[(y * w + (x + 1)) * 4 + c];
+
+              let laplacian = (4 * center) - (top + bottom + left + right);
+              data[idx + c] = Math.min(255, Math.max(0, Math.round(center + laplacian * strength)));
+            }
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+      } catch (e) {
+        console.warn('Unsharp mask:', e);
+      }
+    }
+
+    /* =========================================================================
+       إدارة أرشيف صور الطلاب داخل البرنامج (IndexedDB)
+       ========================================================================= */
+    const DB_NAME = 'StudentPhotoArchiveDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'saved_photos';
+    let dbInstance = null;
+
+    function initArchiveDB() {
+      return new Promise((resolve) => {
+        if (!window.indexedDB) {
+          console.warn('IndexedDB not supported in this browser');
+          resolve(null);
+          return;
+        }
+        const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+        request.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            const store = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+            store.createIndex('name', 'studentName', { unique: false });
+            store.createIndex('timestamp', 'timestamp', { unique: false });
+          }
+        };
+        request.onsuccess = (e) => {
+          dbInstance = e.target.result;
+          updateArchiveBadge();
+          resolve(dbInstance);
+        };
+        request.onerror = (e) => {
+          console.error('Failed to open archive DB:', e);
+          resolve(null);
+        };
+      });
+    }
+
+    function saveToArchive(photoData) {
+      if (!dbInstance) {
+        initArchiveDB().then(() => {
+          if (dbInstance) doSave(photoData);
+        });
+      } else {
+        doSave(photoData);
+      }
+
+      function doSave(data) {
+        try {
+          const tx = dbInstance.transaction([STORE_NAME], 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          store.add(data);
+          tx.oncomplete = () => {
+            updateArchiveBadge();
+            const arcModal = document.getElementById('archiveModal');
+            if (arcModal && arcModal.style.display === 'flex') {
+              const query = document.getElementById('archiveSearchInput') ? document.getElementById('archiveSearchInput').value : '';
+              renderArchiveList(query);
+            }
+          };
+        } catch (e) {
+          console.error('Error saving to archive:', e);
+        }
+      }
+    }
+
+    function updateArchiveBadge() {
+      if (!dbInstance) return;
+      try {
+        const tx = dbInstance.transaction([STORE_NAME], 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const countReq = store.count();
+        countReq.onsuccess = () => {
+          const count = countReq.result || 0;
+          const badge = document.getElementById('archive-count-badge');
+          if (badge) badge.innerText = count;
+          const displayCount = document.getElementById('archiveTotalCountDisplay');
+          if (displayCount) displayCount.innerText = count;
+        };
+      } catch (e) {
+        console.error('Error updating badge:', e);
+      }
+    }
+
+    function loadAllArchivePhotos(callback) {
+      if (!dbInstance) {
+        initArchiveDB().then(() => {
+          if (dbInstance) fetchAll(); else callback([]);
+        });
+      } else {
+        fetchAll();
+      }
+
+      function fetchAll() {
+        try {
+          const tx = dbInstance.transaction([STORE_NAME], 'readonly');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.getAll();
+          req.onsuccess = () => {
+            const list = req.result || [];
+            // فرز تنازلي حسب الأحدث
+            list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            callback(list);
+          };
+          req.onerror = () => callback([]);
+        } catch (e) {
+          console.error(e);
+          callback([]);
+        }
+      }
+    }
+
+    function deleteArchivePhoto(id) {
+      if (!dbInstance) return;
+      try {
+        const tx = dbInstance.transaction([STORE_NAME], 'readwrite');
+        const store = tx.objectStore(STORE_NAME);
+        store.delete(id);
+        tx.oncomplete = () => {
+          updateArchiveBadge();
+          const query = document.getElementById('archiveSearchInput') ? document.getElementById('archiveSearchInput').value : '';
+          renderArchiveList(query);
+        };
+      } catch (e) {
+        console.error('Error deleting photo:', e);
+      }
+    }
+
+    function confirmClearArchive() {
+      const langData = i18n[currentLang] || i18n.bad;
+      const confirmMsg = langData.archiveConfirmClear || 'هل أنت متأكد من مسح كافة الأرشيف؟';
+      if (confirm(confirmMsg)) {
+        if (!dbInstance) return;
+        try {
+          const tx = dbInstance.transaction([STORE_NAME], 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          store.clear();
+          tx.oncomplete = () => {
+            updateArchiveBadge();
+            renderArchiveList('');
+          };
+        } catch (e) {
+          console.error('Error clearing archive:', e);
+        }
+      }
+    }
+
+    function openArchiveModal() {
+      const modal = document.getElementById('archiveModal');
+      if (modal) modal.style.display = 'flex';
+      const searchBox = document.getElementById('archiveSearchInput');
+      if (searchBox) {
+        searchBox.value = '';
+      }
+      renderArchiveList('');
+    }
+
+    function closeArchiveModal() {
+      const modal = document.getElementById('archiveModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function onArchiveSearch(query) {
+      renderArchiveList(query);
+    }
+
+    function renderArchiveList(query = '') {
+      const container = document.getElementById('archiveListContainer');
+      if (!container) return;
+      const langData = i18n[currentLang] || i18n.bad;
+
+      loadAllArchivePhotos((photos) => {
+        let filtered = photos;
+        const q = (query || '').trim().toLowerCase();
+        if (q) {
+          filtered = photos.filter(item => 
+            (item.studentName || '').toLowerCase().includes(q) ||
+            (item.filename || '').toLowerCase().includes(q)
+          );
+        }
+
+        const displayCount = document.getElementById('archiveTotalCountDisplay');
+        if (displayCount) displayCount.innerText = photos.length;
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="archive-empty">
+              <div class="archive-empty-icon">📭</div>
+              <strong style="display:block; margin-bottom: 4px; font-size: 13px;">${langData.archiveEmpty}</strong>
+              <span style="font-size: 11px;">${langData.archiveEmptySub}</span>
+            </div>
+          `;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((item) => {
+          const isHd = item.isHd;
+          const badgeClass = isHd ? 'badge-hd' : 'badge-std';
+          const sizeLabel = item.sizeLabel || `${item.width}×${item.height}`;
+          
+          let typeLabel = '';
+          if (item.type === 'white' || item.type === 'white-hd' || item.type === 'standard') {
+            typeLabel = '⚪ ' + (currentLang === 'en' ? 'White' : (currentLang === 'ar' ? 'بيضاء' : 'سپی'));
+          } else if (item.type === 'original' || item.type === 'original-hd') {
+            typeLabel = '📷 ' + (currentLang === 'en' ? 'Original' : (currentLang === 'ar' ? 'أصلية' : 'بنەڕەتی'));
+          } else {
+            typeLabel = '✨ ' + (currentLang === 'en' ? 'PNG Cutout' : (currentLang === 'ar' ? 'مفرغ' : 'شەفاف'));
+          }
+
+          html += `
+            <div class="archive-item">
+              <div class="archive-thumb-wrap">
+                <img src="${item.dataUrl}" class="archive-thumb" alt="${item.studentName}">
+              </div>
+              <div class="archive-info">
+                <div class="archive-name">${item.studentName}</div>
+                <div class="archive-tags">
+                  <span class="archive-tag ${badgeClass}">${sizeLabel}</span>
+                  <span class="archive-tag">${typeLabel}</span>
+                </div>
+                <div class="archive-date">🕒 ${item.dateStr || ''}</div>
+              </div>
+              <div class="archive-actions">
+                <button type="button" class="archive-act-btn download" onclick="downloadArchivedPhotoById(${item.id})" title="${langData.archiveDownload}">
+                  ${langData.archiveDownload}
+                </button>
+                <button type="button" class="archive-act-btn reopen" onclick="openArchivedPhotoInEditor(${item.id})" title="${langData.archiveOpen}">
+                  ${langData.archiveOpen}
+                </button>
+                <button type="button" class="archive-act-btn delete" onclick="deleteArchivePhoto(${item.id})" title="${langData.archiveDelete}">
+                  ${langData.archiveDelete}
+                </button>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      });
+    }
+
+    function downloadArchivedPhotoById(id) {
+      if (!dbInstance) return;
+      try {
+        const tx = dbInstance.transaction([STORE_NAME], 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get(id);
+        req.onsuccess = () => {
+          const item = req.result;
+          if (item && item.dataUrl) {
+            const link = document.createElement('a');
+            link.download = item.filename || `${item.studentName || 'student'}_Photo.jpg`;
+            link.href = item.dataUrl;
+            link.click();
+            showSaveToast();
+          }
+        };
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function openArchivedPhotoInEditor(id) {
+      if (!dbInstance) return;
+      try {
+        const tx = dbInstance.transaction([STORE_NAME], 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const req = store.get(id);
+        req.onsuccess = () => {
+          const item = req.result;
+          if (item && item.dataUrl) {
+            closeArchiveModal();
+            studentNameInput.value = item.studentName || '';
+            const img = new Image();
+            img.onload = () => {
+              cachedOriginalImg = img;
+              fullWhiteCanvas.width = img.width;
+              fullWhiteCanvas.height = img.height;
+              const fCtx = fullWhiteCanvas.getContext('2d');
+              fCtx.drawImage(img, 0, 0);
+
+              previewCanvas.width = 166;
+              previewCanvas.height = 200;
+              const pCtx = previewCanvas.getContext('2d');
+              pCtx.drawImage(img, 0, 0, 166, 200);
+
+              currentPreviewMode = (item.type === 'png' || item.type === 'png-transparent') ? 'transparent' : 
+                                   (item.type === 'original' || item.type === 'original-hd') ? 'original' : 'white';
+              togglePreviewBg(currentPreviewMode);
+              document.getElementById('previewModal').style.display = 'flex';
+            };
+            img.src = item.dataUrl;
+          }
+        };
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    let saveToastTimeout = null;
+    function showSaveToast() {
+      const toast = document.getElementById('saveToast');
+      if (!toast) return;
+      toast.classList.add('show');
+      if (saveToastTimeout) clearTimeout(saveToastTimeout);
+      saveToastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    /* =========================================================================
+       تحميل الصور بحسب وضع الجودة المختار (HD بنسبة 166:200 أو مقاس الهوية 166×200)
+       مع بقاء الصورة في البرنامج وحفظها في الأرشيف الدائم
        ========================================================================= */
     function downloadImage(type) {
       const name = studentNameInput.value.trim();
@@ -1671,7 +2594,6 @@
         return;
       }
 
-      // إذا كانت التعديلات الحالية بالدقة المخففة فقط، نُشغل المعالجة الكاملة قبل التحجيم لـ 166×200
       if (fullResDirty && (type !== 'original' && type !== 'original-hd')) {
         runWhiteningPipeline({ fullResolution: true });
         fullResDirty = false;
@@ -1680,75 +2602,59 @@
       const cleanName = name.replace(/[/\\?%*:|"<>]/g, '_');
       const link = document.createElement('a');
 
-      // المقاس الثابت لجميع الأنواع: 166 عرض × 200 ارتفاع
-      const targetW = 166;
-      const targetH = 200;
-      const outCanvas = document.createElement('canvas');
-      outCanvas.width = targetW;
-      outCanvas.height = targetH;
-      const outCtx = outCanvas.getContext('2d');
-      outCtx.imageSmoothingEnabled = true;
-      outCtx.imageSmoothingQuality = 'high';
+      // تحديد الأبعاد حسب وضع الجودة:
+      // HD = 830×1000 (بنسبة 166:200 بالتمام والكمال وبدقة استوديو كاملة)
+      // STD = 166×200 (المقاس الرسمي المباشر مع معالجة توضيح الملامح)
+      const isHd = (currentQualityMode === 'hd');
+      const targetW = isHd ? 830 : 166;
+      const targetH = isHd ? 1000 : 200;
+
+      let srcCanvas;
+      let filenameSuffix;
 
       if (type === 'white' || type === 'white-hd' || type === 'standard') {
-        // 1. خلفية بيضاء نقية بمقاس 166×200
-        outCtx.fillStyle = '#FFFFFF';
-        outCtx.fillRect(0, 0, targetW, targetH);
-
-        const hRatio = targetW / fullWhiteCanvas.width;
-        const vRatio = targetH / fullWhiteCanvas.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (targetW - fullWhiteCanvas.width * ratio) / 2;
-        const centerShiftY = (targetH - fullWhiteCanvas.height * ratio) / 2;
-
-        outCtx.drawImage(
-          fullWhiteCanvas,
-          0, 0, fullWhiteCanvas.width, fullWhiteCanvas.height,
-          centerShiftX, centerShiftY, fullWhiteCanvas.width * ratio, fullWhiteCanvas.height * ratio
-        );
-
-        link.download = `${cleanName}_White_166x200.jpg`;
-        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
-
+        srcCanvas = fullWhiteCanvas;
+        filenameSuffix = isHd ? 'White_HD_166x200.jpg' : 'White_166x200.jpg';
       } else if (type === 'original' || type === 'original-hd') {
-        // 2. الخلفية الأصلية بدون تبييض بمقاس 166×200
-        const hRatio = targetW / cachedOriginalImg.width;
-        const vRatio = targetH / cachedOriginalImg.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (targetW - cachedOriginalImg.width * ratio) / 2;
-        const centerShiftY = (targetH - cachedOriginalImg.height * ratio) / 2;
-
-        outCtx.drawImage(
-          cachedOriginalImg,
-          0, 0, cachedOriginalImg.width, cachedOriginalImg.height,
-          centerShiftX, centerShiftY, cachedOriginalImg.width * ratio, cachedOriginalImg.height * ratio
-        );
-
-        link.download = `${cleanName}_Original_166x200.jpg`;
-        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
-
-      } else if (type === 'png' || type === 'png-transparent') {
-        // 3. صورة مفرغة PNG شفافة بمقاس 166×200
-        outCtx.clearRect(0, 0, targetW, targetH);
-
-        const hRatio = targetW / fullCutoutCanvas.width;
-        const vRatio = targetH / fullCutoutCanvas.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (targetW - fullCutoutCanvas.width * ratio) / 2;
-        const centerShiftY = (targetH - fullCutoutCanvas.height * ratio) / 2;
-
-        outCtx.drawImage(
-          fullCutoutCanvas,
-          0, 0, fullCutoutCanvas.width, fullCutoutCanvas.height,
-          centerShiftX, centerShiftY, fullCutoutCanvas.width * ratio, fullCutoutCanvas.height * ratio
-        );
-
-        link.download = `${cleanName}_Cutout_166x200.png`;
-        link.href = outCanvas.toDataURL('image/png');
+        srcCanvas = cachedOriginalImg;
+        filenameSuffix = isHd ? 'Original_HD_166x200.jpg' : 'Original_166x200.jpg';
+      } else {
+        srcCanvas = fullCutoutCanvas;
+        filenameSuffix = isHd ? 'Cutout_HD_166x200.png' : 'Cutout_166x200.png';
       }
 
+      const isTransparent = (type === 'png' || type === 'png-transparent');
+      const outCanvas = downscaleWithQuality(srcCanvas, targetW, targetH, isTransparent);
+
+      link.download = `${cleanName}_${filenameSuffix}`;
+      if (isTransparent) {
+        link.href = outCanvas.toDataURL('image/png');
+      } else {
+        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
+      }
+
+      // تنزيل الملف للجهاز
       link.click();
-      closeModal();
+
+      // حفظ الصورة في أرشيف البرنامج الدائم وعدم حذفها
+      const now = new Date();
+      const dateFormatted = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      saveToArchive({
+        studentName: name,
+        filename: `${cleanName}_${filenameSuffix}`,
+        type: type,
+        isHd: isHd,
+        sizeLabel: isHd ? '💎 HD (830×1000)' : '💳 166×200',
+        width: targetW,
+        height: targetH,
+        dataUrl: link.href,
+        dateStr: dateFormatted,
+        timestamp: Date.now()
+      });
+
+      // إظهار إشعار حفظ وبقاء الصورة في البرنامج
+      showSaveToast();
+      // ملاحظة هامة: تم إلغاء استدعاء closeModal() لتبقى الصورة معروضة في البرنامج أمام المستخدم
     }
 
     function closeModal() {
@@ -1840,6 +2746,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       checkInstalledStatus();
+      initArchiveDB();
       setLang('bad');
       setInitialWhitening(initialWhiteningEnabled);
     });
