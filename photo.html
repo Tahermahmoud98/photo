@@ -1161,6 +1161,9 @@
           <button type="button" class="q-switch-btn" id="btn-q-std" onclick="setQualityMode('std')">
             <span>💳</span> <span id="txt-q-std">قەبارێ ناسنامێ (166×200)</span>
           </button>
+          <button type="button" class="q-switch-btn" id="btn-q-jns" onclick="setQualityMode('jns')">
+            <span>🪪</span> <span id="txt-q-jns">قەبارێ جنسیە (200×166)</span>
+          </button>
         </div>
         <div class="quality-hint-tag" id="txt-quality-hint">
           💎 کوالێتیا ستۆدیۆ یا نایاب (830×1000) بێ تێکچوونا روونیێ، بۆ چاپکرن و شاشێن بەرز گونجایە.
@@ -1288,14 +1291,19 @@
         qualityTitle: 'کوالێتی و قەبارێ پاراستنا وێنەی:',
         qHd: 'کوالێتیا بەرز (HD ستۆدیۆ)',
         qStd: 'قەبارێ ناسنامێ (166×200)',
+        qJns: 'قەبارێ جنسیە (200×166)',
         qHintHd: '💎 کوالێتیا ستۆدیۆ یا نایاب (830×1000) بێ تێکچوونا روونیێ، بۆ چاپکرن و شاشێن بەرز گونجایە.',
         qHintStd: '💳 قەبارێ فەرمی یێ سیستەمێ پەروەردە (166×200) ب فلتەرێ تیژکرنا هویر بۆ نەهێلانا لێلبوونێ.',
+        qHintJns: '🪪 قەبارێ جنسیە و مستمسکاتا فەرمی (200×166) ب کوالێتیا بەرز و تیژکرنا پایێدار.',
         btnSaveWhiteHd: 'پاراستن: پاشبنەما سپی (HD ستۆدیۆ)',
         btnSaveOrigHd: 'پاراستن: ب پاشبنەما بنەڕەتی (HD ستۆدیۆ)',
         btnSavePngHd: 'پاراستن: PNG شەفاف (HD ستۆدیۆ)',
         btnSaveWhiteStd: 'پاراستن: پاشبنەما سپی (166×200)',
         btnSaveOrigStd: 'پاراستن: ب پاشبنەما بنەڕەتی (166×200)',
         btnSavePngStd: 'پاراستن: PNG شەفاف (166×200)',
+        btnSaveWhiteJns: 'پاراستن: پاشبنەما سپی (200×166 جنسیە)',
+        btnSaveOrigJns: 'پاراستن: ب پاشبنەما بنەڕەتی (200×166 جنسیە)',
+        btnSavePngJns: 'پاراستن: PNG شەفاف (200×166 جنسیە)',
         btnRetake: 'دووبارە هەلبژارتن',
         alertHeader: 'هشیاری!',
         alertContent: 'هیڤیدکەین سەرەتا ناڤێ قوتابی د خانیا دیارکری دا بنڤیسە دا کو وێنە بهێتە پاراستن!',
@@ -1355,14 +1363,19 @@
         qualityTitle: 'کوالێتی و قەبارەی خەزنکردنی وێنە:',
         qHd: 'کوالێتی بەرز (HD ستۆدیۆ)',
         qStd: 'قەبارەی ناسنامە (166×200)',
+        qJns: 'قەبارەی جنسیە (200×166)',
         qHintHd: '💎 کوالێتی ستۆدیۆی نایاب (830×1000) بێ تێکچوونی وردەکارییەکان و بۆ چاپکردن گونجاوە.',
         qHintStd: '💳 قەبارەی ڕاستەقینەی پەروەردە (166×200) بە فلتەری تیژکردنی تایبەت بۆ نەهێشتنی تەڵخی.',
+        qHintJns: '🪪 قەبارەی جنسیە و مستمسکاتی فەرمی (200×166) بە کوالێتی بەرز و تیژکردنی پایەدار.',
         btnSaveWhiteHd: 'خەزنکردن: سپی (HD ستۆدیۆ)',
         btnSaveOrigHd: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (HD ستۆدیۆ)',
         btnSavePngHd: 'خەزنکردن: وەک PNG شەفاف (HD ستۆدیۆ)',
         btnSaveWhiteStd: 'خەزنکردن: سپی (166×200)',
         btnSaveOrigStd: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (166×200)',
         btnSavePngStd: 'خەزنکردن: وەک PNG شەفاف (166×200)',
+        btnSaveWhiteJns: 'خەزنکردن: سپی (200×166 جنسیە)',
+        btnSaveOrigJns: 'خەزنکردن: بە پاشبنەمای بنەڕەتی (200×166 جنسیە)',
+        btnSavePngJns: 'خەزنکردن: وەک PNG شەفاف (200×166 جنسیە)',
         btnRetake: 'دووبارە هەڵبژاردنەوە',
         alertHeader: 'ئاگاداری!',
         alertContent: 'تکایە سەرەتا ناوی قوتابی بنووسە بۆ ئەوەی وێنەکە پاشەکەوت بکرێت!',
@@ -1422,14 +1435,19 @@
         qualityTitle: 'دقة وحجم حفظ الصورة:',
         qHd: 'دقة فائقة (HD ستوديو)',
         qStd: 'مقاس الهوية (166×200)',
+        qJns: 'مقاس الجنسية (200×166)',
         qHintHd: '💎 دقة استوديو كاملة ونقية (830×1000) بنسبة 166:200 بدون أي فقدان للجودة ومثالية للطباعة.',
         qHintStd: '💳 مقاس النظام المدرسي المباشر (166×200) مع معالجة ذكية لمنع الضبابية وتوضيح الملامح.',
+        qHintJns: '🪪 مقاس صورة الجنسية والوثائق الرسمية (200×166) بجودة عالية وتوضيح فائق الدقة.',
         btnSaveWhiteHd: 'حفظ: خلفية بيضاء نقية (HD ستوديو)',
         btnSaveOrigHd: 'حفظ: بالخلفية الأصلية (HD ستوديو)',
         btnSavePngHd: 'حفظ: بصيغة PNG مفرغة (HD ستوديو)',
         btnSaveWhiteStd: 'حفظ: خلفية بيضاء (166×200 فائق الحدة)',
         btnSaveOrigStd: 'حفظ: بالخلفية الأصلية (166×200 فائق الحدة)',
         btnSavePngStd: 'حفظ: بصيغة PNG (166×200 فائق الحدة)',
+        btnSaveWhiteJns: 'حفظ: خلفية بيضاء (200×166 جنسية)',
+        btnSaveOrigJns: 'حفظ: بالخلفية الأصلية (200×166 جنسية)',
+        btnSavePngJns: 'حفظ: بصيغة PNG (200×166 جنسية)',
         btnRetake: 'إعادة المحاولة / صورة أخرى',
         alertHeader: 'تنبيه!',
         alertContent: 'يرجى كتابة اسم الطالب أولاً في الخانة المخصصة قبل الحفظ!',
@@ -1489,14 +1507,19 @@
         qualityTitle: 'Download Resolution & Size:',
         qHd: 'Ultra HD (Studio Quality)',
         qStd: 'School ID Size (166×200)',
+        qJns: 'Nationality ID (200×166)',
         qHintHd: '💎 Studio HD resolution (830×1000) in exact 166:200 ratio with zero quality loss, great for printing.',
         qHintStd: '💳 Exact 166×200 portal size with stepped downsampling & sharpness filter to prevent blur.',
+        qHintJns: '🪪 Nationality/official document photo size (200×166) with high quality and ultra-sharp detail.',
         btnSaveWhiteHd: 'Save: Pure White BG (Studio HD)',
         btnSaveOrigHd: 'Save: Original BG (Studio HD)',
         btnSavePngHd: 'Save: Transparent PNG (Studio HD)',
         btnSaveWhiteStd: 'Save: Pure White BG (166×200 Sharp)',
         btnSaveOrigStd: 'Save: Original BG (166×200 Sharp)',
         btnSavePngStd: 'Save: Transparent PNG (166×200 Sharp)',
+        btnSaveWhiteJns: 'Save: Pure White BG (200×166 Nationality)',
+        btnSaveOrigJns: 'Save: Original BG (200×166 Nationality)',
+        btnSavePngJns: 'Save: Transparent PNG (200×166 Nationality)',
         btnRetake: 'Retake / Choose Another',
         alertHeader: 'Notice!',
         alertContent: 'Please enter student name before downloading!',
@@ -1553,7 +1576,7 @@
     }
 
     // إدارة دقة وجودة الحفظ (HD فائقة بنسبة 166:200 أو مقاس الهوية 166×200 فائق الحدة)
-    let currentQualityMode = 'hd'; // 'hd' or 'std'
+    let currentQualityMode = 'hd'; // 'hd', 'std', or 'jns'
     try {
       const savedQ = localStorage.getItem('hd_studio_quality_mode');
       if (savedQ) currentQualityMode = savedQ;
@@ -1565,27 +1588,38 @@
         localStorage.setItem('hd_studio_quality_mode', mode);
       } catch (e) {}
 
-      const btnHd = document.getElementById('btn-q-hd');
+      const btnHd  = document.getElementById('btn-q-hd');
       const btnStd = document.getElementById('btn-q-std');
-      if (btnHd && btnStd) {
-        btnHd.classList.toggle('active', mode === 'hd');
-        btnStd.classList.toggle('active', mode === 'std');
-      }
+      const btnJns = document.getElementById('btn-q-jns');
+      if (btnHd)  btnHd.classList.toggle('active',  mode === 'hd');
+      if (btnStd) btnStd.classList.toggle('active', mode === 'std');
+      if (btnJns) btnJns.classList.toggle('active', mode === 'jns');
 
       const data = i18n[currentLang];
       const hint = document.getElementById('txt-quality-hint');
       if (hint && data) {
-        hint.innerText = (mode === 'hd') ? data.qHintHd : data.qHintStd;
+        if (mode === 'hd')       hint.innerText = data.qHintHd;
+        else if (mode === 'std') hint.innerText = data.qHintStd;
+        else                     hint.innerText = data.qHintJns || data.qHintStd;
       }
 
       if (data) {
-        const isHd = (mode === 'hd');
         const btnSaveWhite = document.getElementById('txt-btn-save-white');
-        const btnSaveOrig = document.getElementById('txt-btn-save-orig');
-        const btnSavePng = document.getElementById('txt-btn-save-png');
-        if (btnSaveWhite) btnSaveWhite.innerText = isHd ? data.btnSaveWhiteHd : data.btnSaveWhiteStd;
-        if (btnSaveOrig) btnSaveOrig.innerText = isHd ? data.btnSaveOrigHd : data.btnSaveOrigStd;
-        if (btnSavePng) btnSavePng.innerText = isHd ? data.btnSavePngHd : data.btnSavePngStd;
+        const btnSaveOrig  = document.getElementById('txt-btn-save-orig');
+        const btnSavePng   = document.getElementById('txt-btn-save-png');
+        if (mode === 'hd') {
+          if (btnSaveWhite) btnSaveWhite.innerText = data.btnSaveWhiteHd;
+          if (btnSaveOrig)  btnSaveOrig.innerText  = data.btnSaveOrigHd;
+          if (btnSavePng)   btnSavePng.innerText   = data.btnSavePngHd;
+        } else if (mode === 'std') {
+          if (btnSaveWhite) btnSaveWhite.innerText = data.btnSaveWhiteStd;
+          if (btnSaveOrig)  btnSaveOrig.innerText  = data.btnSaveOrigStd;
+          if (btnSavePng)   btnSavePng.innerText   = data.btnSavePngStd;
+        } else {
+          if (btnSaveWhite) btnSaveWhite.innerText = data.btnSaveWhiteJns || data.btnSaveWhiteStd;
+          if (btnSaveOrig)  btnSaveOrig.innerText  = data.btnSaveOrigJns  || data.btnSaveOrigStd;
+          if (btnSavePng)   btnSavePng.innerText   = data.btnSavePngJns   || data.btnSavePngStd;
+        }
       }
     }
 
@@ -1678,6 +1712,8 @@
       document.getElementById('txt-quality-title').innerText = data.qualityTitle;
       document.getElementById('txt-q-hd').innerText = data.qHd;
       document.getElementById('txt-q-std').innerText = data.qStd;
+      const btnQJns = document.getElementById('txt-q-jns');
+      if (btnQJns && data.qJns) btnQJns.innerText = data.qJns;
       setQualityMode(currentQualityMode);
       document.getElementById('txt-btn-retake').innerText = data.btnRetake;
 
@@ -2240,8 +2276,11 @@
       finalCtx.drawImage(curCanvas, 0, 0, curW, curH, shiftX, shiftY, drawW, drawH);
 
       // توضيح الحواف والتفاصيل بدقة عالية للصور الصغيرة (166×200) لمنع أي تشويش
-      if (targetW <= 300 && !isTransparent) {
-        applyUnsharpMask(finalCtx, targetW, targetH, 0.32);
+      if (targetW <= 300) {
+        // مرور أول: توضيح قوي للتفاصيل
+        applyUnsharpMask(finalCtx, targetW, targetH, 0.65);
+        // مرور ثانٍ: توضيح خفيف للحواف الدقيقة
+        applyUnsharpMask(finalCtx, targetW, targetH, 0.30);
       }
 
       return finalCanvas;
@@ -2605,22 +2644,24 @@
       // تحديد الأبعاد حسب وضع الجودة:
       // HD = 830×1000 (بنسبة 166:200 بالتمام والكمال وبدقة استوديو كاملة)
       // STD = 166×200 (المقاس الرسمي المباشر مع معالجة توضيح الملامح)
-      const isHd = (currentQualityMode === 'hd');
-      const targetW = isHd ? 830 : 166;
-      const targetH = isHd ? 1000 : 200;
+      const isHd  = (currentQualityMode === 'hd');
+      const isJns = (currentQualityMode === 'jns');
+      // HD: 830×1000 | STD: 166×200 | JNS (جنسية): 200×166
+      const targetW = isHd ? 830  : isJns ? 200 : 166;
+      const targetH = isHd ? 1000 : isJns ? 166 : 200;
 
       let srcCanvas;
       let filenameSuffix;
 
       if (type === 'white' || type === 'white-hd' || type === 'standard') {
         srcCanvas = fullWhiteCanvas;
-        filenameSuffix = isHd ? 'White_HD_166x200.jpg' : 'White_166x200.jpg';
+        filenameSuffix = isHd ? 'White_HD_166x200.jpg' : isJns ? 'White_200x166_Jinsiya.jpg' : 'White_166x200.jpg';
       } else if (type === 'original' || type === 'original-hd') {
         srcCanvas = cachedOriginalImg;
-        filenameSuffix = isHd ? 'Original_HD_166x200.jpg' : 'Original_166x200.jpg';
+        filenameSuffix = isHd ? 'Original_HD_166x200.jpg' : isJns ? 'Original_200x166_Jinsiya.jpg' : 'Original_166x200.jpg';
       } else {
         srcCanvas = fullCutoutCanvas;
-        filenameSuffix = isHd ? 'Cutout_HD_166x200.png' : 'Cutout_166x200.png';
+        filenameSuffix = isHd ? 'Cutout_HD_166x200.png' : isJns ? 'Cutout_200x166_Jinsiya.png' : 'Cutout_166x200.png';
       }
 
       const isTransparent = (type === 'png' || type === 'png-transparent');
@@ -2630,7 +2671,9 @@
       if (isTransparent) {
         link.href = outCanvas.toDataURL('image/png');
       } else {
-        link.href = outCanvas.toDataURL('image/jpeg', 0.98);
+        // جودة 1.0 للمقاس الصغير (166×200) لمنع فقدان الجودة، و0.98 للـ HD
+        const jpegQuality = isHd ? 0.98 : 1.0;
+        link.href = outCanvas.toDataURL('image/jpeg', jpegQuality);
       }
 
       // تنزيل الملف للجهاز
@@ -2644,7 +2687,7 @@
         filename: `${cleanName}_${filenameSuffix}`,
         type: type,
         isHd: isHd,
-        sizeLabel: isHd ? '💎 HD (830×1000)' : '💳 166×200',
+        sizeLabel: isHd ? '💎 HD (830×1000)' : isJns ? '🪪 جنسیە (200×166)' : '💳 166×200',
         width: targetW,
         height: targetH,
         dataUrl: link.href,
